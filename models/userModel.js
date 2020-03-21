@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  exercises: [{
+  exercises: [{ //doesn't need to be in same order as seeds in NoSQL
     name: {
         type: String,
         trim: true,
