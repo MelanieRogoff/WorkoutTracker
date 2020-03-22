@@ -3,19 +3,29 @@ const path = require('path');
 
 module.exports = function(app) {
 app.get("/api/workouts", ({ body }, res) => {
-//the front end is fetching info from this path for getLastWorkout()
+// getLastWorkout() 
 
 })
 
 app.put("/api/workouts/:id", (req, res) => {
-    //the front end is fetching info from this path for getLastWorkout()
-    
-    })
+    //addExercise(data) -- updating & adding 
+    User.findOne(req.params.workoutData_id, function(err, workoutData) {
+        if (err)
+            res.send(err);
+        workoutData.save(function(err) {
+          if (err) 
+            res.send(err)
+          res.json({ message: 'Workout updated!'});
+      })
+    });
+});
 
 app.post("/api/workouts", ({ body }, res) => {
-    //createWorkout(data = {}) from api.js needs this
-    //have to create stuff here
-    User.Create(body) //getting User.Create is not a f(x) -- why?
+    //createWorkout(data = {}) 
+    console.log(body) //returns empty object
+    console.log(User, "USER") // this returns Model { User }
+   
+    User.create(body) 
     .then(dbUser => {
         res.json(dbUser);
     })
@@ -25,14 +35,14 @@ app.post("/api/workouts", ({ body }, res) => {
 });
 
 app.get("/api/workouts/range", (req, res) => {
-  //getWorkoutsInRange() in api.js relies on this
-    User.find({})
-    .sort({ probablyRange: -1 })
-    .then(dbUser => {
-      res.json(dbUser);
-    })
-    .catch(err => {
-     res.status(400).json(err);
-    });
+  //GET for getWorkoutsInRange() 
+    // User.find({})
+    // .sort({ probablyRange: -1 })
+    // .then(dbUser => {
+    //   res.json(dbUser);
+    // })
+    // .catch(err => {
+    //  res.status(400).json(err);
+    // });
 });
 }
