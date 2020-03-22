@@ -20,8 +20,7 @@ app.put("/api/workouts/:id", (req, res) => {
     });
 });
 
-app.post("/api/workouts", ({ body }, res) => {
-    //createWorkout(data = {}) 
+app.post("/api/workouts", ({ body }, res) => { //createWorkout(data = {})
     console.log(body) //returns empty object
     console.log(User, "USER") // this returns Model { User }
    
@@ -35,14 +34,14 @@ app.post("/api/workouts", ({ body }, res) => {
 });
 
 app.get("/api/workouts/range", (req, res) => {
-  //GET for getWorkoutsInRange() 
-    // User.find({})
-    // .sort({ probablyRange: -1 })
-    // .then(dbUser => {
-    //   res.json(dbUser);
-    // })
-    // .catch(err => {
-    //  res.status(400).json(err);
-    // });
+ // GET for getWorkoutsInRange() -- This appears to get the stats page
+    User.find({})
+    .sort({ range: -1 })
+    .then(dbUser => {
+      res.json(dbUser);
+    })
+    .catch(err => {
+     res.status(400).json(err);
+    });
 });
 }
