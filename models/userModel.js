@@ -1,10 +1,13 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  exercises: [
-      { //doesn't need to be in same order as seeds in NoSQL
+    day: {
+        type: Date,
+        default: () => new Date()
+    },
+  exercises: [//doesn't need to be in same order as seeds in NoSQL
+      { 
       type: {
         type: String, 
         trim: true
@@ -30,7 +33,7 @@ const UserSchema = new Schema({
         type: Number,
         required: "Number is Required"
     },
-    distanceTraveled: { //ONLY IF EXERCISE IS CARDIO
+    distance: { //ONLY IF EXERCISE IS CARDIO
         type: Number
     }
 }]

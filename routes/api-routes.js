@@ -4,7 +4,6 @@ const path = require('path');
 module.exports = function(app) {
 app.get("/api/workouts", ({ body }, res) => {
 // getLastWorkout() 
-
 })
 
 app.put("/api/workouts/:id", (req, res) => {
@@ -20,18 +19,15 @@ app.put("/api/workouts/:id", (req, res) => {
     });
 });
 
-app.post("/api/workouts", ({ body }, res) => { //createWorkout(data = {})
-    console.log(body) //returns empty object
-    console.log(User, "USER") // this returns Model { User }
-   
-    User.create(body) 
-    .then(dbUser => {
-        res.json(dbUser);
-    })
-    .catch(err => {
-        res.status(400).json(err);
+app.post("/api/workouts", (req, res) => { //createWorkout(data = {})
+    User.create(req) 
+        .then(dbUser => {
+            res.json(dbUser);
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        });
     });
-});
 
 app.get("/api/workouts/range", (req, res) => {
  // GET for getWorkoutsInRange() -- This appears to get the stats page
