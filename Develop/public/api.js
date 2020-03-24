@@ -19,7 +19,7 @@ const API = {
       body: JSON.stringify(data)
     });
 
-    const json = await res.json();
+    const json = await res.json(); //turns the response into a json object by doing .json();
 
     return json;
   },

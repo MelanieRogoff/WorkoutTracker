@@ -1,4 +1,4 @@
-const User = require("./../models/userModel.js");
+const Workout = require("./../models/userModel.js");
 const path = require('path');
 
 module.exports = function(app) {
@@ -7,22 +7,22 @@ app.get("/api/workouts", ({ body }, res) => {
 })
 
 app.put("/api/workouts/:id", (req, res) => {
-    //addExercise(data) -- updating & adding 
-    User.findOne(req.params.workoutData_id, function(err, workoutData) {
-        if (err)
+    //addExercise(data) -- updating & adding  ---- do req.body in exercises to grab all of the data (we grab thru req)
+    //ANYTHING COMING FROM FRONT END IS A REQ, SO YOU NEED TO DO REQ.BODY
+    //INFO WE WANT TO SEND TO FRONTEND IS THE RES, SO RES.SEND
+    Workout.findByIdAndUpdate(req.params.id, {$push: { exercises: req.body} }, { new: true}, function (err, data) {
+        if (err) {
             res.send(err);
-        workoutData.save(function(err) {
-          if (err) 
-            res.send(err)
-          res.json({ message: 'Workout updated!'});
-      })
-    });
+        } else {
+            res.send(data)
+        }
+    }) 
 });
 
 app.post("/api/workouts", ({body}, res) => { //createWorkout(data = {})
-    User.create(body) 
-        .then(dbUser => {
-            res.json(dbUser);
+    Workout.create(body) 
+        .then(dbWorkout => {
+            res.json(dbWorkout);
         })
         .catch(err => {
             res.status(400).json(err);
@@ -31,10 +31,10 @@ app.post("/api/workouts", ({body}, res) => { //createWorkout(data = {})
 
 app.get("/api/workouts/range", (req, res) => {
  // GET for getWorkoutsInRange() -- This appears to get the stats page
-    User.find({})
+    Workout.find({})
     .sort({ range: -1 })
-    .then(dbUser => {
-      res.json(dbUser);
+    .then(dbWorkout => {
+      res.json(dbWorkout);
     })
     .catch(err => {
      res.status(400).json(err);
