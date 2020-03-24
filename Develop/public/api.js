@@ -23,7 +23,7 @@ const API = {
 
     return json;
   },
-  async createWorkout(data = {}) {
+  async createWorkout(data = {}) { //data = {} says if we don't have a param being passed in, make it an empty object as a default value
     const res = await fetch("/api/workouts", {
       method: "POST",
       body: JSON.stringify(data),
