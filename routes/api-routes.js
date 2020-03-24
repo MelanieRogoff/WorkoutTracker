@@ -1,12 +1,10 @@
 const Workout = require("./../models/userModel.js");
-const path = require('path');
 
 module.exports = function(app) {
 app.get("/api/workouts", (req, res) => { //getLastWorkout() 
-//MAKE A FIND BY THAT SORTS BY DATE, LIMIT OF 1 - DON'T NEED BODY AS IT'S  A GET
-Workout.find({})
-    .sort({ day: -1 })
-    .limit(1)
+Workout.find({}) //Using .find({}) to get the last workout
+    .sort({ day: -1 }) 
+    .limit(1) 
     .then(dbWorkout => {
       res.json(dbWorkout);
     })
@@ -16,12 +14,9 @@ Workout.find({})
 })
 
 app.put("/api/workouts/:id", (req, res) => { //addExercise(data) - UPDATE & SAVE
-    //do req.body in exercises to grab all data (we grab thru req)
-    //ANYTHING COMING FROM FRONT END IS A REQ, SO YOU NEED TO DO REQ.BODY
-    //INFO WE WANT TO SEND TO FRONTEND IS THE RES, SO RES.SEND
-    Workout.findByIdAndUpdate(req.params.id, {$push: { exercises: req.body} }, { new: true}, function (err, data) {
+    Workout.findByIdAndUpdate(req.params.id, {$push: { exercises: req.body} }, { new: true}, function (err, data) { //put req.body in exercises to grab all data from frontend
         if (err) {
-            res.send(err);
+            res.send(err); //info that is sent from our backend to the frontend is always res
         } else {
             res.send(data)
         }
