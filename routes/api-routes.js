@@ -3,9 +3,9 @@ const path = require('path');
 
 module.exports = function(app) {
 app.get("/api/workouts", (req, res) => { //getLastWorkout() 
-//MAKE A FIND BY THAT SORTS BY DATE - DON'T NEED BODY AS IT'S JUST A GET
+//MAKE A FIND BY THAT SORTS BY DATE, LIMIT OF 1 - DON'T NEED BODY AS IT'S  A GET
 Workout.find({})
-    .sort({ date: +1 })
+    .sort({ day: -1 })
     .limit(1)
     .then(dbWorkout => {
       res.json(dbWorkout);
@@ -13,7 +13,6 @@ Workout.find({})
     .catch(err => {
      res.status(400).json(err);
     });
-//JUST A SIMPLE FIND, BUT SORT BY DATE & DO A LIMIT OF 1, BC WE ONLY WANT 1
 })
 
 app.put("/api/workouts/:id", (req, res) => { //addExercise(data) - UPDATE & SAVE
