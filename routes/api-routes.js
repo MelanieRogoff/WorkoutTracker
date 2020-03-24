@@ -4,6 +4,15 @@ const path = require('path');
 module.exports = function(app) {
 app.get("/api/workouts", (req, res) => { //getLastWorkout() 
 //MAKE A FIND BY THAT SORTS BY DATE - DON'T NEED BODY AS IT'S JUST A GET
+Workout.find({})
+    .sort({ date: +1 })
+    .limit(1)
+    .then(dbWorkout => {
+      res.json(dbWorkout);
+    })
+    .catch(err => {
+     res.status(400).json(err);
+    });
 //JUST A SIMPLE FIND, BUT SORT BY DATE & DO A LIMIT OF 1, BC WE ONLY WANT 1
 })
 
