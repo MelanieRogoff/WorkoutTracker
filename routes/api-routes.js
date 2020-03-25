@@ -5,8 +5,8 @@ app.get("/api/workouts", (req, res) => { //getLastWorkout()
 Workout.find({}) //Using .find({}) to get the last workout
     .sort({ day: -1 }) 
     .limit(1) 
-    .then(dbWorkout => {
-      res.json(dbWorkout);
+    .then(dbWorkout => { //dbWorkout is also the name of the array
+        res.json(dbWorkout); 
     })
     .catch(err => {
      res.status(400).json(err);
@@ -16,7 +16,7 @@ Workout.find({}) //Using .find({}) to get the last workout
 app.put("/api/workouts/:id", (req, res) => { //addExercise(data) - UPDATE & SAVE
     Workout.findByIdAndUpdate(req.params.id, {$push: { exercises: req.body} }, { new: true}, function (err, data) { //put req.body in exercises to grab all data from frontend
         if (err) {
-            res.send(err); //info that is sent from our backend to the frontend is always res
+            res.send(err); //info sent from our backend to frontend is always res
         } else {
             res.send(data)
         }
