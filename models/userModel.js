@@ -5,7 +5,7 @@ const opts = { toJSON: { virtuals: true } }; //opts is necessary for virtual
 const WorkoutSchema = new Schema({
     day: {
         type: Date,
-        default: () => new Date()
+        default: new Date().getTime()
     },
   exercises: [//doesn't need to be in same order as seeds in NoSQL
       { 

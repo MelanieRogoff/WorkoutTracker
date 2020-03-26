@@ -3,8 +3,6 @@ const Workout = require("./../models/userModel.js");
 module.exports = function(app) {
 app.get("/api/workouts", (req, res) => { //getLastWorkout() 
 Workout.find({}) //Using .find({}) to get the last workout
-    .sort({ day: -1 }) 
-    .limit(1) 
     .then(dbWorkout => { //dbWorkout is also the name of the array
         res.json(dbWorkout); 
     })
@@ -35,7 +33,8 @@ app.post("/api/workouts", ({body}, res) => { //createWorkout(data = {})
 
 app.get("/api/workouts/range", (req, res) => { //getWorkoutsInRange() gets info from stats page
     Workout.find({})
-    .sort({ range: -1 })
+    .sort({ day: -1 })
+    .limit(7)
     .then(dbWorkout => {
       res.json(dbWorkout);
     })
